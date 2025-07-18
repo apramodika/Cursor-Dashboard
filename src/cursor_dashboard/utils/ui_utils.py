@@ -1,5 +1,6 @@
 import streamlit as st
 import os
+from ..config.settings import DASHBOARD_CONFIG
 
 def load_css():
     """Load CSS styles from external file"""
@@ -31,6 +32,8 @@ def load_css():
         </style>
         """, unsafe_allow_html=True)
 
-def create_header(title="🚀 Cursor Analytics"):
+def create_header(title=None):
     """Create the dashboard header"""
+    if title is None:
+        title = f"{DASHBOARD_CONFIG['title']}"
     st.markdown(f'<h1 style="text-align: left; color: #2E86AB; margin-bottom: 1rem; font-size: 2rem; font-weight: 700;">{title}</h1>', unsafe_allow_html=True) 
