@@ -7,8 +7,11 @@ def create_lines_accepted_chart(chart_data):
         st.warning("No data available for chart.")
         return
     
+    # Sort data by Lines_Accepted in descending order for better visualization
+    sorted_data = chart_data.sort_values('Lines_Accepted', ascending=True)
+    
     fig = px.bar(
-        data_frame=chart_data,
+        data_frame=sorted_data,
         x='Lines_Accepted',
         y='Developer',
         orientation='h',
@@ -31,7 +34,11 @@ def create_lines_accepted_chart(chart_data):
     fig.update_yaxes(
         showgrid=False,
         tickangle=0,
-        tickfont=dict(size=11)
+        tickfont=dict(size=11),
+        tickmode='array',
+        ticktext=sorted_data['Developer'].tolist(),
+        tickvals=list(range(len(sorted_data))),
+        automargin=True
     )
     
     st.plotly_chart(fig, use_container_width=True) 
